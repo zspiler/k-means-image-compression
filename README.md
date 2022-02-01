@@ -25,12 +25,12 @@ The input image should be in PNG format.
     <img align = "center" src="examples/seville_64.png" alt="Example image - 64 colors"/>
     <figcaption align = "center"><b>K = 64</b></figcaption>
 </figure>
-
+<br/><br/><br/><br/>
 <figure>
     <img align = "center" src="examples/seville_32.png" alt="Example image - 32 colors"/>
     <figcaption align = "center"><b>K = 32</b></figcaption>
 </figure>
-
+<br/><br/><br/><br/>
 <figure>
     <img align = "center" src="examples/seville_16.png" alt="Example image - 16 colors"/>
     <figcaption align = "center"><b>K = 16</b></figcaption>
