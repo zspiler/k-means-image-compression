@@ -30,45 +30,48 @@ int main(int argc, char *argv[]) {
 
     int K = 64;
     int I = 50;
+    int showDevices = 0;
+    int deviceID = 0;
 
     char *inputFile = NULL;
     char *outputFile = "compressed.png";
 
     char flag;
-    while ((flag = getopt (argc, argv, "K:I:")) != -1) {
+    while ((flag = getopt(argc, argv, "K:I:d:s")) != -1) {
         switch (flag) {
             case 'K':
                 K = atoi(optarg);
                 if (K <= 1) {
-                    fprintf(stderr, "Option -%c requires a positive number as argument.\n", optopt);
+                    fprintf(stderr, "Option -%c requires a positive numeric argument.\n", optopt);
+                    exit(1);
                 }
                 break;
-                exit(1);
             case 'I':
                 I = atoi(optarg);
                 if (I <= 1) {
-                    fprintf(stderr, "Option -%c requires a positive number as argument.\n", optopt);
+                    fprintf(stderr, "Option -%c requires a positive numeric argument.\n", optopt);
+                    exit(1);
                 }
                 break;
-                exit(1);
-            case '?':
-                if (optopt == 'K' || optopt == 'I') {
-                    fprintf(stderr, "Option -%c requires an argument.\n", optopt);
-                } 
-                else {
-                    fprintf(stderr, "Unknown option `-%c'.\n", optopt);
+            case 'd':
+                deviceID = atoi(optarg);
+                if (deviceID < 0) {
+                    fprintf(stderr, "Option -%c requires a device index as argument (>= 0).\n", optopt);
+                    exit(1);
                 }
-                exit(1);
+                break;
+            case 's':
+                showDevices = 1;
+                break;
             default:
                 exit(1);
         }
     }
     
-    int nonOptArgs = argc - optind;
-    if (nonOptArgs == 1) {
+    if (argc-optind == 1) {
         inputFile = argv[optind];
     } 
-    else if (nonOptArgs == 2) {
+    else if (argc-optind == 2) {
         inputFile = argv[optind];
         outputFile = argv[optind+1];
     }
@@ -175,10 +178,10 @@ int main(int argc, char *argv[]) {
     checkStatus(status, "clGetDeviceIDs");
 
 
-    // printPlatformsInfo(devices, numOfDevices);
-    
-    // select device
-    const int deviceID = 0;
+    if (showDevices) {
+        printPlatformsInfo(devices, numOfDevices);
+    }
+        
 
     /*************************************/
     /*   CREATE A CONTEXT                */    
